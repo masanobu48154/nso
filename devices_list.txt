@@ -1,0 +1,72 @@
+devices device core-rtr01
+ address   172.16.1.73
+ ssh host-key-verification none
+ authgroup labadmin
+ device-type cli ned-id cisco-iosxr-cli-3.5
+ device-type cli protocol telnet
+ state admin-state unlocked
+!
+devices device core-rtr02
+ address   172.16.1.74
+ ssh host-key-verification none
+ authgroup labadmin
+ device-type cli ned-id cisco-iosxr-cli-3.5
+ device-type cli protocol telnet
+ state admin-state unlocked
+!
+devices device dist-rtr01
+ address   172.16.1.75
+ ssh host-key-verification none
+ authgroup labadmin
+ device-type cli ned-id cisco-ios-cli-3.8
+ device-type cli protocol telnet
+ state admin-state unlocked
+!
+devices device dist-rtr02
+ address   172.16.1.76
+ ssh host-key-verification none
+ authgroup labadmin
+ device-type cli ned-id cisco-ios-cli-3.8
+ device-type cli protocol telnet
+ state admin-state unlocked
+!
+devices device dist-sw01
+ address   172.16.1.77
+ ssh host-key-verification none
+ authgroup labadmin
+ device-type cli ned-id cisco-nx-cli-3.0
+ device-type cli protocol telnet
+ state admin-state unlocked
+!
+devices device dist-sw02
+ address   172.16.1.78
+ ssh host-key-verification none
+ authgroup labadmin
+ device-type cli ned-id cisco-nx-cli-3.0
+ device-type cli protocol telnet
+ state admin-state unlocked
+!
+devices device edge-firewall01
+ address   172.16.1.71
+ ssh host-key-verification none
+ authgroup labadmin
+ device-type cli ned-id cisco-asa-cli-6.6
+ device-type cli protocol telnet
+ state admin-state unlocked
+!
+devices device edge-sw01
+ address   172.16.1.72
+ ssh host-key-verification none
+ authgroup labadmin
+ device-type cli ned-id cisco-ios-cli-3.8
+ device-type cli protocol telnet
+ state admin-state unlocked
+!
+devices device internet-rtr01
+ address   172.16.1.81
+ ssh host-key-verification none
+ authgroup labadmin
+ device-type cli ned-id cisco-ios-cli-3.8
+ device-type cli protocol telnet
+ state admin-state unlocked
+!

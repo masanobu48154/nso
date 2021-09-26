@@ -7,36 +7,44 @@ git clone https://github.com/masanobu48154/nso.git
 
 ## Usage
 
-### 1. Go into the nso directory
+### 1. Get NSO Trial Installer
+https://developer.cisco.com/docs/nso/#!getting-and-installing-nso/getting-nso
+
+### 2. Copy NSO Trial Installer to nso directory
+```
+cp ./nso-5.5.linux.x86_64.signed.bin ./nso/
+```
+
+### 3. Go into the nso directory
 ```
 cd nso/
 ```
-### 2. Build docker image
+### 4. Build docker image
 ```
 sudo docker build -t nso:01 ./
 ```
 
-### 3. Run container
+### 5. Run container
 ```
 sudo docker run -it -d --name nso -p 8080:8080 nso:01
 ```
 
-### 4. Login to nso container
+### 6. Login to nso container
 ```
 sudo docker exec -it nso bash
 ```
 
-### 5. Cange directory
+### 7. Cange directory
 ```
 cd /root/nso-5.5
 ```
 
-### 6. Read ncsrc
+### 8. Read ncsrc
 ```
 source nso-5.5/ncsrc
 ```
 
-### 7. Setup NSO instance
+### 9. Setup NSO instance
 ```
 ncs-setup --package packages/neds/cisco-ios-cli-3.8 \
   --package packages/neds/cisco-asa-cli-6.6 \
@@ -45,12 +53,12 @@ ncs-setup --package packages/neds/cisco-ios-cli-3.8 \
   --dest nso-instance
 ```
 
-### 8. Change to project directory
+### 10. Change to project directory
 ```
 cd ~/nso-instance
 ```
 
-### 9. Run NSO
+### 11. Run NSO
 ```
 ncs
 ```

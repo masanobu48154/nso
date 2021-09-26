@@ -41,7 +41,7 @@ cd /root/nso-5.5
 
 ### 8. Read ncsrc
 ```
-source nso-5.5/ncsrc
+source ncsrc
 ```
 
 ### 9. Setup NSO instance
@@ -55,7 +55,7 @@ ncs-setup --package packages/neds/cisco-ios-cli-3.8 \
 
 ### 10. Change to project directory
 ```
-cd ~/nso-instance
+cd ./nso-instance
 ```
 
 ### 11. Run NSO

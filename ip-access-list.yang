@@ -1,0 +1,33 @@
+module ip-access-list {
+  namespace "http://example.com/ns/yang/ip-access-list";
+  prefix acl;
+
+  organization
+    "CISCO SYSTEMS";
+
+  contact
+    "CISCO SYSTEMS
+     Customer Service
+     E-mail: cisco@cisco.com";
+
+  description
+    "Access Controll List YANG Model.";
+
+  revision 2021-10-09 {
+    description
+      "Initial revision";
+  }
+
+  container acl {
+    description
+    "Access Conroll Lists";
+
+    leaf acl-description{
+      type string {
+        length "0..64";
+        pattern "[0-9a-zA-Z]*";
+      }
+      description "Purpose of ACL";
+    }
+  }
+}

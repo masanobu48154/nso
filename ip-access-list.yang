@@ -2,6 +2,14 @@ module ip-access-list {
   namespace "http://example.com/ns/yang/ip-access-list";
   prefix acl;
 
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  import protocol-base {
+    prefix protocol;
+  }
+
   organization
     "CISCO SYSTEMS";
 
@@ -18,16 +26,79 @@ module ip-access-list {
       "Initial revision";
   }
 
+  typedef port-type {
+    type union {
+      type uint16 {
+        range "0..65535";
+      }
+      type enumeration{
+        enum "ssh" {value 22;}
+        enum "telnet" {value 23;}
+        enum "http" {value 80;}
+        enum "https" {value 443;}
+        enum "ntp" {value 123;}
+        enum "ftp" {value 21;}
+        enum "pop" {value 110;}
+        enum "smtp" {value 25;}
+        enum "tftp" {value 69;}
+        enum "domin" {value 53;}
+      }
+    }
+  }
+  identity udp {
+    base protocol:base-protocol;
+    description "The User Datagram protocol";
+  }
+  identity icmp {
+    base protocol:base-protocol;
+    description "The Internet Control Mssage Protocol";
+  }
   container acl {
     description
     "Access Conroll Lists";
 
-    leaf acl-description{
+    leaf acl-description {
       type string {
         length "0..64";
         pattern "[0-9a-zA-Z]*";
       }
       description "Purpose of ACL";
+    }
+    leaf-list maintainers {
+      type string;
+      description "Maintainers working n the ACL";
+    }
+    list entry {
+      key "number";
+      leaf number {
+        type uint16;
+      }
+      leaf action {
+        type enumeration {
+          enum permit;
+          enum deny;
+        }
+        description "Action to take with the packet";
+      }
+      leaf source-ip {
+        type inet:ipv4-address;
+        description "Source IPv4 Address.";
+      }
+      leaf destination-ip {
+        type inet:ipv4-address;
+        description "Destination IPv4 Address.";
+      }
+      leaf destination-port {
+        type port-type;
+        description "Destination Port.";
+      }
+      leaf protocol {
+        type identityref {
+        base protocol:base-protocol;
+        }
+        description "Protocol";
+      }
+      description "Sequence number of an ACE";
     }
   }
 }

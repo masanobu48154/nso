@@ -18,12 +18,12 @@ module add-vpn {
     "CISCO SYSTEMS";
 
   contact
-    "CISCO SYSTEMS
+    "EXAMPLE SYSTEMS
      Customer Service
-     E-mail: cisco@cisco.com";
+     E-mail: example@example.com";
 
   description
-    "Access Controll List YANG Model.";
+    "L3VPN YANG Model.";
 
   revision 2021-10-11 {
     description

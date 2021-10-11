@@ -89,6 +89,7 @@ module ip-access-list {
         description "Destination IPv4 Address.";
       }
       leaf destination-port {
+        when "../protocol != 'acl:icmp'";
         type port-type;
         description "Destination Port.";
       }

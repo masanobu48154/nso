@@ -1,0 +1,13 @@
+module maintainers-base {
+  namespace "http://example.com/us/yang/maintainers-base";
+  prefix base;
+  description "The Base Modele For The maintainers.";
+
+  identity base-maintainers {
+    description "Cutom identity for the base protocol";
+  }
+  identity masanobu {
+    base base-maintainers;
+    description "The Member of Maintainers";
+  }
+}

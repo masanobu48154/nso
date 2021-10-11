@@ -1,0 +1,140 @@
+module add-vpn {
+  namespace "http://example.com/ns/yang/add-vpn";
+  prefix vpn;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  import tailf-ncs {
+    prefix ncs;
+  }
+
+  import maintainers-base {
+    prefix maintainers;
+  }
+
+  organization
+    "CISCO SYSTEMS";
+
+  contact
+    "CISCO SYSTEMS
+     Customer Service
+     E-mail: cisco@cisco.com";
+
+  description
+    "Access Controll List YANG Model.";
+
+  revision 2021-10-11 {
+    description
+      "Initial revision";
+  }
+
+  typedef rd-type {
+    type union {
+      type string {
+        pattern "[0-9]{1,5}:[0-9]{1,5}";
+      }
+      type enumeration {
+        enum "65432:111";
+        enum "65432:222";
+      }
+    }
+  }
+
+  typedef route-target-export-type {
+    type union {
+      type string {
+        pattern "[0-9]{1,5}:[0-9]{1,5}";
+      }
+      type enumeration {
+        enum "65432:111";
+        enum "65432:222";
+      }
+    }
+  }
+
+  typedef route-target-import-type {
+    type union {
+      type string {
+        pattern "[0-9]{1,5}:[0-9]{1,5}";
+      }
+      type enumeration {
+        enum "65432:111";
+        enum "65432:222";
+      }
+    }
+  }
+
+  identity ikuta {
+    base maintainers:base-maintainers;
+    description "The Member of Maintainers";
+  }
+  identity higashimura {
+    base maintainers:base-maintainers;
+    description "The Member of Maintainers";
+  }
+  container vpn {
+    description
+    "L3vpn vrf";
+
+    list vrf {
+      key "vrf-name";
+
+      leaf vrf-name {
+        type string;
+      }
+
+      leaf description {
+        type string {
+        length "0..16";
+        pattern "[0-9a-zA-Z]*";
+        }
+      }
+
+      leaf rd {
+        type rd-type;
+        description "Route Distinguisher and Route target";
+      }
+
+      leaf route-target-export {
+        type route-target-export-type;
+        description "Route Target Export";
+      }
+
+      leaf-list route-target-import {
+        type route-target-export-type;
+        description "Route Target Export";
+      }
+
+      leaf-list maintainer-members {
+        type identityref {
+          base maintainers:base-maintainers;
+        }
+        description "Maintainers of Customer";
+      }
+
+      list device {
+        key "device-name";
+
+        leaf device-name {
+          type leafref {
+            path "/ncs:devices/ncs:device/ncs:name";
+          }
+        }
+
+        leaf loopback-number {
+          type uint16;
+          description "Loopback Interface Number";
+        }
+
+        leaf loopback-ip {
+          type inet:ipv4-address;
+          description "Loopback IPv4 Address.";
+        }
+        description "VRF Configured Device";
+      }
+      description "VRF of L3VPN";
+    }
+  }
+}

@@ -78,8 +78,12 @@ module add-vpn {
     description
     "L3vpn vrf";
 
-    list vrf {
-      key "vrf-name";
+    list vpn-device {
+      key "device-name";
+
+      leaf device-name {
+        type string;
+      }
 
       leaf vrf-name {
         type string;
@@ -89,6 +93,12 @@ module add-vpn {
         type string {
         length "0..16";
         pattern "[0-9a-zA-Z]*";
+        }
+      }
+
+      leaf-list device {
+        type leafref {
+          path "/ncs:devices/ncs:device/ncs:name";
         }
       }
 
@@ -114,27 +124,17 @@ module add-vpn {
         description "Maintainers of Customer";
       }
 
-      list device {
-        key "device-name";
-
-        leaf device-name {
-          type leafref {
-            path "/ncs:devices/ncs:device/ncs:name";
-          }
-        }
-
-        leaf loopback-number {
-          type uint16;
-          description "Loopback Interface Number";
-        }
-
-        leaf loopback-ip {
-          type inet:ipv4-address;
-          description "Loopback IPv4 Address.";
-        }
-        description "VRF Configured Device";
+      leaf loopback-number {
+        type uint16;
+        description "Loopback Interface Number";
       }
-      description "VRF of L3VPN";
+
+      leaf loopback-ip {
+        type inet:ipv4-address;
+        description "Loopback IPv4 Address.";
+      }
+        description "VRF Configured Device";
+
     }
   }
 }

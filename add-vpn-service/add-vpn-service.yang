@@ -1,5 +1,5 @@
-module add-vpn {
-  namespace "http://example.com/ns/yang/add-vpn";
+module add-vpn-service {
+  namespace "http://example.com/ns/yang/add-vpn-service";
   prefix vpn;
 
   import ietf-inet-types {
@@ -78,8 +78,11 @@ module add-vpn {
     description
     "L3vpn vrf";
 
-    list vpn-device {
+    list vpn-policy {
       key "device-name";
+
+      uses ncs:service-data;
+      ncs:servicepoint "add-vpn-service";
 
       leaf device-name {
         type string;
@@ -92,7 +95,7 @@ module add-vpn {
       leaf description {
         type string {
         length "0..16";
-        pattern "[0-9a-zA-Z]*";
+        pattern "[0-9a-zA-Z_-]*";
         }
       }
 

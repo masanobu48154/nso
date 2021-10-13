@@ -79,45 +79,18 @@ module add-vpn-service {
     "L3vpn vrf";
 
     list vpn-policy {
-      key "device-name";
+      key "policy-name";
+      description "VRF Configured Policy";
 
       uses ncs:service-data;
       ncs:servicepoint "add-vpn-service";
 
-      leaf device-name {
+      leaf policy-name {
         type string;
       }
 
       leaf vrf-name {
         type string;
-      }
-
-      leaf description {
-        type string {
-        length "0..16";
-        pattern "[0-9a-zA-Z_-]*";
-        }
-      }
-
-      leaf-list device {
-        type leafref {
-          path "/ncs:devices/ncs:device/ncs:name";
-        }
-      }
-
-      leaf rd {
-        type rd-type;
-        description "Route Distinguisher and Route target";
-      }
-
-      leaf route-target-export {
-        type route-target-export-type;
-        description "Route Target Export";
-      }
-
-      leaf-list route-target-import {
-        type route-target-export-type;
-        description "Route Target Export";
       }
 
       leaf-list maintainer-members {
@@ -127,17 +100,47 @@ module add-vpn-service {
         description "Maintainers of Customer";
       }
 
-      leaf loopback-number {
-        type uint16;
-        description "Loopback Interface Number";
+      leaf description {
+        type string {
+        length "0..16";
+        pattern "[0-9a-zA-Z_-]*";
+        }
       }
 
-      leaf loopback-ip {
-        type inet:ipv4-address;
-        description "Loopback IPv4 Address.";
+      leaf device {
+        type leafref {
+          path "/ncs:devices/ncs:device/ncs:name";
+        }
       }
-        description "VRF Configured Device";
 
+      container rd-rt {
+        leaf rd {
+          type rd-type;
+          description "Route Distinguisher and Route target";
+        }
+
+        leaf route-target-export {
+          type route-target-export-type;
+          description "Route Target Export";
+        }
+
+        leaf-list route-target-import {
+          type route-target-export-type;
+          description "Route Target Export";
+        }
+      }
+
+      container loopback {
+        leaf loopback-number {
+          type uint16;
+          description "Loopback Interface Number";
+        }
+
+        leaf loopback-ip {
+          type inet:ipv4-address;
+          description "Loopback IPv4 Address.";
+        }
+      }
     }
   }
 }

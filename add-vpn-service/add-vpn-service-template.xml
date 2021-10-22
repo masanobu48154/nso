@@ -9,63 +9,63 @@
       -->
       <name>{/device}</name>
       <config>
-        <vrf xmlns="http://tail-f.com/ned/cisco-ios-xr">
-          <vrf-list>
-            <name>{/vrf-name}</name>
-            <address-family>
-              <ipv4>
-                <unicast>
-                  <import>
-                    <route-target>
-                      <address-list>
-                        <name>{/route-target-import}</name>
-                      </address-list>
-                    </route-target>
-                  </import>
-                  <export>
-                    <route-target>
-                      <address-list>
-                        <name>{/route-target-export}</name>
-                      </address-list>
-                    </route-target>
-                  </export>
-                </unicast>
-              </ipv4>
-            </address-family>
-          </vrf-list>
-        </vrf>
-        <interface xmlns="http://tail-f.com/ned/cisco-ios-xr">
-          <Loopback>
-            <id>{/loopback-number}</id>
-            <vrf>{/vrf-name}</vrf>
+      <vrf xmlns="http://tail-f.com/ned/cisco-ios-xr">
+        <vrf-list>
+          <name>{/vrf/vrf-name}</name>
+          <address-family>
             <ipv4>
-              <address>
-                <ip>{/loopback-ip}</ip>
-                <mask>255.255.255.255</mask>
-              </address>
+              <unicast>
+                <import>
+                  <route-target>
+                    <address-list>
+                      <name>{/vrf/route-target-import}</name>
+                    </address-list>
+                  </route-target>
+                </import>
+                <export>
+                  <route-target>
+                    <address-list>
+                      <name>{/vrf/route-target-export}</name>
+                    </address-list>
+                  </route-target>
+                </export>
+              </unicast>
             </ipv4>
-          </Loopback>
-        </interface>
-        <router xmlns="http://tail-f.com/ned/cisco-ios-xr">
-          <bgp>
-            <bgp-no-instance>
-              <id>65432</id>
-              <vrf>
-                <name>{/vrf-name}</name>
-                <rd>{/rd}</rd>
-                <address-family>
-                  <ipv4>
-                    <unicast>
-                      <redistribute>
-                        <connected/>
-                      </redistribute>
-                    </unicast>
-                  </ipv4>
-                </address-family>
-              </vrf>
-            </bgp-no-instance>
-          </bgp>
-        </router>
+          </address-family>
+        </vrf-list>
+      </vrf>
+      <interface xmlns="http://tail-f.com/ned/cisco-ios-xr">
+        <Loopback>
+          <id>{/loopback/loopback-number}</id>
+          <vrf>{/vrf/vrf-name}</vrf>
+          <ipv4>
+            <address>
+              <ip>{/loopback/loopback-ip}</ip>
+              <mask>255.255.255.255</mask>
+            </address>
+          </ipv4>
+        </Loopback>
+      </interface>
+      <router xmlns="http://tail-f.com/ned/cisco-ios-xr">
+        <bgp>
+          <bgp-no-instance>
+            <id>65432</id>
+            <vrf>
+              <name>{/vrf/vrf-name}</name>
+              <rd>{/vrf/rd}</rd>
+              <address-family>
+                <ipv4>
+                  <unicast>
+                    <redistribute>
+                      <connected/>
+                    </redistribute>
+                  </unicast>
+                </ipv4>
+              </address-family>
+            </vrf>
+          </bgp-no-instance>
+        </bgp>
+      </router>
       </config>
     </device>
   </devices>

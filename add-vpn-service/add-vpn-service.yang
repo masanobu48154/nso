@@ -15,7 +15,7 @@ module add-vpn-service {
   }
 
   organization
-    "CISCO SYSTEMS";
+    "EXAMPLE SYSTEMS";
 
   contact
     "EXAMPLE SYSTEMS
@@ -25,12 +25,12 @@ module add-vpn-service {
   description
     "L3VPN YANG Model.";
 
-  revision 2021-10-11 {
+  revision 2021-10-15 {
     description
       "Initial revision";
   }
 
-  typedef rd-type {
+  typedef rdrt-type {
     type union {
       type string {
         pattern "[0-9]{1,5}:[0-9]{1,5}";
@@ -42,41 +42,17 @@ module add-vpn-service {
     }
   }
 
-  typedef route-target-export-type {
-    type union {
-      type string {
-        pattern "[0-9]{1,5}:[0-9]{1,5}";
-      }
-      type enumeration {
-        enum "65432:111";
-        enum "65432:222";
-      }
-    }
-  }
-
-  typedef route-target-import-type {
-    type union {
-      type string {
-        pattern "[0-9]{1,5}:[0-9]{1,5}";
-      }
-      type enumeration {
-        enum "65432:111";
-        enum "65432:222";
-      }
-    }
-  }
-
-  identity ikuta {
+  identity IETSUNA {
     base maintainers:base-maintainers;
     description "The Member of Maintainers";
   }
-  identity higashimura {
+  identity TSUNATOSHI {
     base maintainers:base-maintainers;
     description "The Member of Maintainers";
   }
+
   container vpn {
-    description
-    "L3vpn vrf";
+    description "L3vpn vrf";
 
     list vpn-policy {
       key "policy-name";
@@ -89,8 +65,11 @@ module add-vpn-service {
         type string;
       }
 
-      leaf vrf-name {
-        type string;
+      leaf device {
+        type leafref {
+          path "/ncs:devices/ncs:device/ncs:name";
+        }
+        description "Configured Device Name";
       }
 
       leaf-list maintainer-members {
@@ -100,37 +79,33 @@ module add-vpn-service {
         description "Maintainers of Customer";
       }
 
-      leaf description {
-        type string {
-        length "0..16";
-        pattern "[0-9a-zA-Z_-]*";
-        }
-      }
+      container vrf {
+        description "Vrf container";
 
-      leaf device {
-        type leafref {
-          path "/ncs:devices/ncs:device/ncs:name";
+        leaf vrf-name {
+          type string;
+          description "VRF Name";
         }
-      }
 
-      container rd-rt {
         leaf rd {
-          type rd-type;
+          type rdrt-type;
           description "Route Distinguisher and Route target";
         }
 
         leaf route-target-export {
-          type route-target-export-type;
+          type rdrt-type;
           description "Route Target Export";
         }
 
         leaf-list route-target-import {
-          type route-target-export-type;
+          type rdrt-type;
           description "Route Target Export";
         }
       }
 
       container loopback {
+        description "Loopback container";
+
         leaf loopback-number {
           type uint16;
           description "Loopback Interface Number";

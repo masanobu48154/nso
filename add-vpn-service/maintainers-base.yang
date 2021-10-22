@@ -6,7 +6,15 @@ module maintainers-base {
   identity base-maintainers {
     description "Cutom identity for the base protocol";
   }
-  identity masanobu {
+  identity IEYASU {
+    base base-maintainers;
+    description "The Member of Maintainers";
+  }
+  identity HIDETADA {
+    base base-maintainers;
+    description "The Member of Maintainers";
+  }
+  identity IEMITSU {
     base base-maintainers;
     description "The Member of Maintainers";
   }
